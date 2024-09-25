@@ -6,6 +6,7 @@ library(mboost)
 library(latex2exp)
 
 # Convergence for different condition numbers
+set.seed(2)
 n <- 200
 mean <- c(0, 0)
 beta0 <- 0
@@ -72,8 +73,7 @@ p1 <- ggplot(df_long_condnum, aes(x = iter, y = value, group = variable, color =
         legend.box.just = "right",
         legend.margin = margin(0, 0, 0, 0),
         legend.box.background = element_blank(),
-        legend.background = element_blank(),
-        ) +
-  xlab("Iterations") + ylab(TeX(r'($f(\beta) - f^{*}$)'))
+        legend.background = element_blank()) +
+  xlab("Iterations") + ylab(expression("\u2113" * (beta) - "\u2113"^"*"))
 p1
-ggsave(file = "plot_condnum.pdf", width = 8*0.9, height = 4*0.9)
+ggsave(file = "plot_condnum.jpeg", width = 8*0.9, height = 4*0.9)
