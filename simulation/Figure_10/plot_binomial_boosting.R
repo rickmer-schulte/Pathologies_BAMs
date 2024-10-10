@@ -24,9 +24,9 @@ x1 <- scaled.data[, 1]
 x2 <- scaled.data[, 2]
 
 # True parameters
-beta0 <- 0  # intercept 0.5
-beta1 <- 3  # coefficient for x1 #3
-beta2 <- -2  # coefficient for x2 #-2
+beta0 <- 0  # intercept
+beta1 <- 3  # coefficient for x1
+beta2 <- -2  # coefficient for x2 
 
 # Simulating response variable y using bernoulli model
 pi <- plogis(beta0 + beta1 * x1 + beta2 * x2)

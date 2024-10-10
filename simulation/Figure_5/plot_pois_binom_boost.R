@@ -16,7 +16,6 @@ library(scales)
 # Step 1: Simulate Data
 set.seed(123) 
 n <- 100  # number of observations
-
 mean <- c(0, 0)
 cov_x <- 0.5
 covariance <- matrix(c(1, cov_x, cov_x, 1), nrow = 2)  # Covariance matrix
@@ -26,9 +25,9 @@ x1 <- scaled.data[, 1]
 x2 <- scaled.data[, 2]
 
 # True parameters
-beta0 <- 0  # intercept 0.5
-beta1 <- 3  # coefficient for x1 #3
-beta2 <- -2  # coefficient for x2 #-2
+beta0 <- 0  # intercept
+beta1 <- 3  # coefficient for x1
+beta2 <- -2  # coefficient for x2 
 
 # Simulating response variable y using Poisson model
 lambda <- exp(beta0 + beta1 * x1 + beta2 * x2)
@@ -84,7 +83,6 @@ gg_poisboost
 # Step 1: Simulate Data
 set.seed(123) 
 n <- 200  # number of observations
-
 mean <- c(0, 0)
 cov_x <- 0.5
 covariance <- matrix(c(1, cov_x, cov_x, 1), nrow = 2)  # Covariance matrix
@@ -154,6 +152,6 @@ gg_binomboost <- ggplot(data=data_list, aes(x=iter, y=log(loss_diff-min(loss_dif
   ylab("Binomial Loss")
 gg_binomboost
 
-# Both plot together
+# Both plots together
 gg_pois_bionom <- grid.arrange(gg_poisboost, gg_binomboost, ncol=1)
 ggsave(gg_pois_bionom, file="pois-bionom-boost_plot.pdf", width = 7*0.9, height = 5*0.9)

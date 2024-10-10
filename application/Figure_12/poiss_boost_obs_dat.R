@@ -8,8 +8,8 @@ library(ggsci)
 library(here)
 
 # Data Reading and Preparation
-source("../data/subset_dat.R")
 path_cov_dat <- here::here('application/data') # Insert folder of loaded data here
+source(paste0(path_cov_dat,"/subset_dat.R"))
 df_san_fra <- load_covid_dat(data_folder_path=path_cov_dat, sf=TRUE)
 
 # Select subset of variables
@@ -153,6 +153,6 @@ grid.arrange(
   arrangeGrob(g1, g2, ncol = 1, heights = c(1, 1)),  # Upper plots
   arrangeGrob(g3, g4, ncol = 1, heights = c(1, 1)),  # Lower plots
   ncol = 2,
-  heights = c(1, 0.05, 1)  # Adjust the spacing between upper and lower plots
+  heights = c(1, 0.05, 1) 
 )
 ggsave(gg_poiss, file="poisboost_plot.pdf", width = 10*0.9, height = 5*0.9)

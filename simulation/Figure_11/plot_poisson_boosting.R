@@ -14,7 +14,6 @@ library(scales)
 # Step 1: Simulate Data
 set.seed(123) 
 n <- 100  # number of observations
-
 mean <- c(0, 0)
 cov_x <- 0.5
 covariance <- matrix(c(1, cov_x, cov_x, 1), nrow = 2)  # Covariance matrix
@@ -24,7 +23,7 @@ x1 <- scaled.data[, 1]
 x2 <- scaled.data[, 2]
 
 # True parameters
-beta0 <- 0  # intercept 0.5
+beta0 <- 0  # intercept
 beta1 <- 3  # coefficient for x1
 beta2 <- -2  # coefficient for x2
 
