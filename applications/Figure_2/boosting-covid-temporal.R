@@ -1,6 +1,7 @@
 # P-Spline Boosting Covid Data
 library(ggplot2)
 library(gridExtra)
+library(grid)
 library(splines)
 library(mboost)
 library(dplyr)
@@ -37,7 +38,7 @@ p1 <- ggplot(df_san_fra, aes(x = dates, y = prevalence)) +
   geom_point(shape = 1, size = 1, alpha=0.3) +
   geom_line(aes(y = y_hat_unpen, color = 'B-Spline Solution'), size = 1.1) +
   geom_line(aes(y = y_hat_pen, color = 'P-Spline Solution'), size = 1.1) +
-  ggtitle('Exact Solutions') +
+  ggtitle('Analytical Spline Solutions') +
   theme_minimal() +
   theme(text = element_text(size = 14),
         plot.title = element_text(hjust = 0.5, size = 13),
@@ -57,7 +58,8 @@ p1
 # Boosting iterations
 boost_pspline <- mboost(df_san_fra$prevalence ~ bbs(df_san_fra$date, knots = 5, df=3, lambda = 1), control = boost_control(mstop = 1000))
 iter_colors <- c("orchid1", "orchid2", "orchid3", "orchid4", "mediumorchid4")
-iterations <- c(1, 10, 30, 60, 5000)
+#iterations <- c(1, 10, 30, 60, 5000)
+iterations <- c(1, 10, 20, 50, 2000)
 
 optim_df <- do.call("rbind", lapply(1:length(iterations), function(i){
   data.frame(iteration = iterations[i],
@@ -74,12 +76,13 @@ p2 <- ggplot() +
   geom_point(unique(optim_df[,c("x","y")]), mapping = aes(x = x, y = y), shape = 1, size = 1, alpha=0.3) +
   geom_path(optim_df, mapping = aes(x = x, y = fitted_values, color = factor(iteration)),
             size = 1.1) + 
-  scale_color_manual(values = iter_colors) + 
+  scale_color_manual(values = iter_colors, name = "Boosting\nIterations",
+                     labels = c("1", "10", "20", "50", "2k")) + 
   theme_minimal() + 
-  ggtitle("Boosting Iterations") + 
-  theme(legend.position = "none",
-        text = element_text(size = 14),
-        plot.title = element_text(hjust = 0.5, size = 13)) + 
+  ggtitle("P-Spline Boosting") + 
+  theme(text = element_text(size = 14),
+        plot.title = element_text(hjust = 0.5, size = 13),
+        legend.title = element_text(size = 12)) + 
   ylim(-0.02,0.46) +
   xlab("") + ylab("")
 p2
@@ -87,5 +90,28 @@ p2
 print(p1)
 print(p2)
 
-g12 <- grid.arrange(p1,p2, ncol=2)
-ggsave(g12, file="pspline_covid_temporal_plot.pdf", width = 13*0.9, height = 5*0.9)
+# g12 <- grid.arrange(p1,p2, ncol=2)
+# ggsave(g12, file="pspline_covid_temporal_plot.pdf", width = 13*0.9, height = 5*0.9)
+
+# Function to extract legend
+get_legend <- function(my_plot) {
+  tmp <- ggplotGrob(my_plot)
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)
+}
+
+# Extract legend from p2
+legend_p2 <- get_legend(p2)
+p2_no_legend <- p2 + theme(legend.position = "none")
+
+# Arrange plots and save
+g12 <- grid.arrange(
+  arrangeGrob(p1, p2_no_legend, ncol = 2),  
+  legend_p2,
+  ncol = 2, 
+  widths = c(2.8, 0.2)
+)
+ggsave(g12, file="pspline_covid_temporal_plot.pdf", width = 15*0.9, height = 4*0.9)
+
+

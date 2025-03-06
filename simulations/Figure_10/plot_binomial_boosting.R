@@ -99,7 +99,7 @@ g2 <- ggplot(data=data_list, aes(x=iter, y=b1,
   scale_x_continuous(trans = "log10") +
   scale_color_npg(scale_name = "what") + 
   guides(color = guide_legend(title = expression(nu))) + 
-  xlab("Iteration") + 
+  xlab("Iteration (log-scale)") + 
   ylab(expression(beta[1])) 
 
 g2
