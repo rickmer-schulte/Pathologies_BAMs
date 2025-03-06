@@ -53,12 +53,10 @@ for (nu_iter in nu_list) {
 data_list_diabetes <- dplyr::bind_rows(results_list)
 
 # (Optional) create additional columns for plotting
-data_list_diabetes$nu_fac <- as.factor(data_list_diabetes$nu)
 data_list_diabetes$loss_diff <- data_list_diabetes$loss - min(data_list_diabetes$loss)
 
 # Custom formatting functions
 integer_format <- function(x) round(x)
-dec1_format <- function(x) round(x, 1)
 
 # Loss convergence plot
 g1 <- ggplot(data=data_list_diabetes, aes(x=iter, y=log(loss_diff+1),
