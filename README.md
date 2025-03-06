@@ -1,3 +1,20 @@
-# The Path(ologie)s of Boosting Additive Models
+# Additive Model Boosting: New Insights and Path(ologie)s
 
-This repository contains the code to reproduce the figures in the "Additive Model Boosting: New Insights and Path(ologie)s" paper.
+This repository contains the code for the figures in the **AISTATS 2025** paper **["Additive Model Boosting: New Insights and Path(ologie)s"](https://openreview.net/forum?id=p4CHBlYxYj)**.
+
+## Contents
+
+- `simulation` : code to reproduce simulations
+- `application` : code to reproduce applications
+
+## Citation
+
+```bibtex
+@inproceedings{
+schulte2025additive,
+title={Additive Model Boosting: New Insights and Path(ologie)s},
+author={Rickmer Schulte and David R{\"u}gamer},
+booktitle={The 28th International Conference on Artificial Intelligence and Statistics},
+year={2025},
+url={https://openreview.net/forum?id=p4CHBlYxYj}
+}
