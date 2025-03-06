@@ -4,8 +4,8 @@ This repository contains the code for the figures in the **AISTATS 2025** paper 
 
 ## Contents
 
-- `simulation` : code to reproduce simulations
-- `application` : code to reproduce applications
+- `simulations` : code to reproduce simulations
+- `applications` : code to reproduce applications
 
 ## Citation
 
